@@ -22,6 +22,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build application files
+        run: npm run build  # <-- ADD THIS LINE (or whatever your Vite/React/Webpack build script is named)
+
       - name: Build Windows application
         run: npm run electron:build
 

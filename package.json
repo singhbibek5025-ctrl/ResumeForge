@@ -1,0 +1,27 @@
+{
+  "name": "resumeforge-app",
+  "version": "2.0.0",
+  "private": true,
+  "description": "ResumeForge \u2014 AI-powered resume and CV builder with Mushak 3.0",
+  "scripts": {
+    "web": "node -e \"console.log('Open web/index.html in a browser or serve the web folder with a local web server.')\"",
+    "electron": "electron electron/main.cjs",
+    "electron:dev": "electron electron/main.cjs",
+    "electron:build": "electron-builder --win nsis portable",
+    "cap:init": "cap init ResumeForge com.bibeksingh.resumeforge --web-dir web",
+    "android": "cap sync android && cap open android",
+    "ios": "cap sync ios && cap open ios",
+    "sync": "cap sync",
+    "check": "node --check electron/main.cjs && node --check electron/preload.cjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/core": "^7.4.3",
+    "@capacitor/ios": "^7.4.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.3",
+    "electron": "^37.2.6",
+    "electron-builder": "^26.0.12"
+  }
+}

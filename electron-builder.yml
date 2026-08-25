@@ -1,0 +1,18 @@
+appId: com.bibeksingh.resumeforge
+productName: ResumeForge
+copyright: Copyright © 2026 Bibek Singh
+icon: resumeforge-logo.ico
+files:
+  - electron/**
+  - web/**
+  - package.json
+win:
+  target:
+    - nsis
+    - portable
+  artifactName: ResumeForge-${version}-${arch}.${ext}
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true

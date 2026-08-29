@@ -1,27 +1,36 @@
-{
-  "name": "resumeforge-app",
-  "version": "2.0.0",
-  "private": true,
-  "description": "ResumeForge \u2014 AI-powered resume and CV builder with Mushak 3.0",
-  "scripts": {
-    "web": "node -e \"console.log('Open web/index.html in a browser or serve the web folder with a local web server.')\"",
-    "electron": "electron electron/main.cjs",
-    "electron:dev": "electron electron/main.cjs",
-    "electron:build": "electron-builder --win nsis portable",
-    "cap:init": "cap init ResumeForge com.bibeksingh.resumeforge --web-dir web",
-    "android": "cap sync android && cap open android",
-    "ios": "cap sync ios && cap open ios",
-    "sync": "cap sync",
-    "check": "node --check electron/main.cjs && node --check electron/preload.cjs"
-  },
-  "dependencies": {
-    "@capacitor/android": "^7.4.3",
-    "@capacitor/core": "^7.4.3",
-    "@capacitor/ios": "^7.4.3"
-  },
-  "devDependencies": {
-    "@capacitor/cli": "^7.4.3",
-    "electron": "^37.2.6",
-    "electron-builder": "^26.0.12"
-  }
-}
+name: Build ResumeForge Windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check Electron files
+        run: npm run check
+
+      - name: Build Windows application
+        run: npm run electron:build
+
+      - name: Upload Windows installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: ResumeForge-Windows
+          path: |
+            dist/*.exe
